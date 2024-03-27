@@ -71,7 +71,7 @@ npm run dev
 
 Agora basta acessarmos a seguinte rota(se for a padrão) em um navegador de sua escolha:
 
-`127.0.0.1:3000`
+`localhost:3000`
 
 # 4 Observações
 
