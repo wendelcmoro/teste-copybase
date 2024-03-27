@@ -58,7 +58,7 @@ npm i
 
 ## 3.2 Configurando ambiente local
 
-No caso do frontend, estamos utilizando o framework NuxtJS, caso necessite, é possível alterar a url da API no arquivo **nuxt.config.js**, na seção **env** e alterar a url para a do backend local ou remoto. O padrão é o endereço ** http://127.0.0.1:8000 **.
+No caso do frontend, estamos utilizando o framework NuxtJS, caso necessite, é possível alterar a url da API no arquivo **nuxt.config.js**, na seção **env** e alterar a url para a do backend local ou remoto. O padrão é o endereço **http://127.0.0.1:8000**.
 
 ## 3.3 Executando projeto
 
