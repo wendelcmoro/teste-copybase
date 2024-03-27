@@ -1,13 +1,14 @@
 <template>
   <v-container>
     <div>
-      <FileUploadModal />
+      <FileUploadModal @file-uploaded="sendRefreshChartData" />
     </div>
     <div>
       <ChartComponent
         :chart-data="chartData"
         :chart-options="chartOptions"
         @update-chart-data="updateChartData"
+        ref="barChart"
       />
     </div>
   </v-container>
@@ -92,6 +93,10 @@ export default {
         }
       });
       this.data = aux;
+    },
+    // Sinaliza evento para atualizar dados do backend
+    async sendRefreshChartData() {
+      this.$refs.barChart.updateChartData();
     },
   },
 };

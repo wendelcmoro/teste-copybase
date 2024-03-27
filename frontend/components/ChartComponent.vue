@@ -194,9 +194,6 @@ export default {
       return years;
     },
   },
-  mounted() {
-    console.log(this.chartData);
-  },
   methods: {
     async updateChartData() {
       let endpoint = "";

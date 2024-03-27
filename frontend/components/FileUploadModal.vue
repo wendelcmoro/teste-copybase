@@ -45,20 +45,24 @@ export default {
       this.dialog = false;
       this.selectedFile = null;
     },
-    uploadFile() {
+    async uploadFile() {
       const formData = new FormData();
       formData.append("file", this.selectedFile);
 
-      this.$axios
-        .post(process.env.apiUrl + "/csv/upload", formData)
-        .then((response) => {
-          console.log("Arquivo enviado com sucesso:", response.data);
-          this.selectedFile = null;
-          this.closeDialog();
-        })
-        .catch((error) => {
-          console.error("Erro ao enviar o arquivo:", error);
-        });
+      try {
+        await this.$axios.post(process.env.apiUrl + "/csv/upload", formData);
+
+        this.selectedFile = null;
+        this.closeDialog();
+
+        // Espera 500 ms para realizar a atualização do dados
+        // tempo para processar o csv e atualizar os dados no backend
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        this.$emit("file-uploaded");
+      } catch (error) {
+        console.error("Error on uploading file:", error);
+      }
     },
   },
 };
