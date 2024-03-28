@@ -86,14 +86,19 @@ export class CsvController {
         subscription.status_date = statusDate.format('YYYY-MM-DD HH:mm:ss');
 
         // data cancelamento
-        let cancelDate = moment.utc(
-          data['data cancelamento'],
-          'D/M/YYYY HH:mm',
-        );
-        if (!cancelDate.isValid()) {
-          cancelDate = moment.utc(data['data cancelamento'], 'M/D/YYYY HH:mm');
+        let cancelDate = null;
+        if (data['data cancelamento'] != '') {
+          cancelDate = moment.utc(data['data cancelamento'], 'D/M/YYYY HH:mm');
+          if (!cancelDate.isValid()) {
+            cancelDate = moment.utc(
+              data['data cancelamento'],
+              'M/D/YYYY HH:mm',
+            );
+          }
+          subscription.cancel_date = cancelDate.format('YYYY-MM-DD HH:mm:ss');
+        } else {
+          cancelDate = null;
         }
-        subscription.cancel_date = cancelDate.format('YYYY-MM-DD HH:mm:ss');
 
         // valor
         subscription.value = data['valor'].replace(/,/g, '.');

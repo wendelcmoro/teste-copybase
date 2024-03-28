@@ -26,17 +26,24 @@ export class SubscriptionService {
 
     // Filtro de ano
     if (year !== undefined) {
-      whereClause = `WHERE YEAR(start_date) = ${year}`;
+      whereClause = `WHERE EXTRACT(YEAR FROM start_date) = ${year}`;
     }
 
     // Filtro de status
     if (status !== undefined) {
+      let auxStatus = "'ACTIVE'";
+      if (status == 2) {
+        auxStatus = "'CANCELED'";
+      } else if (status == 3) {
+        auxStatus = "'DEMO_CANCELED'";
+      }
+
       if (whereClause != '') {
         whereClause = whereClause + ' and ';
       } else {
         whereClause = 'WHERE ';
       }
-      whereClause = whereClause + `status = ${status}`;
+      whereClause = whereClause + `status = ${auxStatus}`;
     }
 
     // Filtro de tipo de data
@@ -52,10 +59,10 @@ export class SubscriptionService {
     }
 
     const query = `
-        SELECT MONTH(${dateFilter}) as month, COUNT(*) as count
+        SELECT EXTRACT(MONTH FROM ${dateFilter}) as month, COUNT(*) as count
         FROM subscriptions
         ${whereClause}
-        GROUP BY MONTH(${dateFilter})
+        GROUP BY EXTRACT(MONTH FROM ${dateFilter})
     `;
 
     const result = await this.entityManager.query(query);
@@ -72,17 +79,24 @@ export class SubscriptionService {
 
     // Filtro de ano
     if (year !== undefined) {
-      whereClause = `WHERE YEAR(start_date) = ${year}`;
+      whereClause = `WHERE EXTRACT(YEAR FROM start_date) = ${year}`;
     }
 
     // Filtro de status
     if (status !== undefined) {
+      let auxStatus = "'ACTIVE'";
+      if (status == 2) {
+        auxStatus = "'CANCELED'";
+      } else if (status == 3) {
+        auxStatus = "'DEMO_CANCELED'";
+      }
+
       if (whereClause != '') {
         whereClause = whereClause + ' and ';
       } else {
         whereClause = 'WHERE ';
       }
-      whereClause = whereClause + `status = ${status}`;
+      whereClause = whereClause + `status = ${auxStatus}`;
     }
 
     // Filtro de tipo de data
@@ -98,11 +112,12 @@ export class SubscriptionService {
     }
 
     const query = `
-      SELECT MONTH(${dateFilter}) as month, SUM(quantity_of_charges) as count
+      SELECT EXTRACT(MONTH FROM ${dateFilter}) as month, SUM(quantity_of_charges) as count
       FROM subscriptions
       ${whereClause}
-      GROUP BY MONTH(${dateFilter})
+      GROUP BY EXTRACT(MONTH FROM ${dateFilter})
     `;
+
     const result = await this.entityManager.query(query);
     return result;
   }
@@ -117,19 +132,25 @@ export class SubscriptionService {
 
     // Filtro de ano
     if (year !== undefined) {
-      whereClause = `WHERE YEAR(start_date) = ${year}`;
+      whereClause = `WHERE EXTRACT(YEAR FROM start_date) = ${year}`;
     }
 
     // Filtro de status
     if (status !== undefined) {
+      let auxStatus = "'ACTIVE'";
+      if (status == 2) {
+        auxStatus = "'CANCELED'";
+      } else if (status == 3) {
+        auxStatus = "'DEMO_CANCELED'";
+      }
+
       if (whereClause != '') {
         whereClause = whereClause + ' and ';
       } else {
         whereClause = 'WHERE ';
       }
-      whereClause = whereClause + `status = ${status}`;
+      whereClause = whereClause + `status = ${auxStatus}`;
     }
-
     // Filtro de tipo de data
     let dateFilter = 'start_date';
     if (date_filter != undefined) {
@@ -143,10 +164,10 @@ export class SubscriptionService {
     }
 
     const query = `
-      SELECT MONTH(${dateFilter}) as month, SUM(charge_period) as count
+      SELECT EXTRACT(MONTH FROM ${dateFilter}) as month, SUM(charge_period) as count
       FROM subscriptions
       ${whereClause}
-      GROUP BY MONTH(${dateFilter})
+      GROUP BY EXTRACT(MONTH FROM ${dateFilter})
     `;
     const result = await this.entityManager.query(query);
     return result;
@@ -162,17 +183,24 @@ export class SubscriptionService {
 
     // Filtro de ano
     if (year !== undefined) {
-      whereClause = `WHERE YEAR(start_date) = ${year}`;
+      whereClause = `WHERE EXTRACT(YEAR FROM start_date) = ${year}`;
     }
 
     // Filtro de status
     if (status !== undefined) {
+      let auxStatus = "'ACTIVE'";
+      if (status == 2) {
+        auxStatus = "'CANCELED'";
+      } else if (status == 3) {
+        auxStatus = "'DEMO_CANCELED'";
+      }
+
       if (whereClause != '') {
         whereClause = whereClause + ' and ';
       } else {
         whereClause = 'WHERE ';
       }
-      whereClause = whereClause + `status = ${status}`;
+      whereClause = whereClause + `status = ${auxStatus}`;
     }
 
     // Filtro de tipo de data
@@ -188,10 +216,10 @@ export class SubscriptionService {
     }
 
     const query = `
-      SELECT MONTH(${dateFilter}) as month, SUM(value) as count
+      SELECT EXTRACT(MONTH FROM ${dateFilter}) as month, SUM(value) as count
       FROM subscriptions
       ${whereClause}
-      GROUP BY MONTH(${dateFilter})
+      GROUP BY EXTRACT(MONTH FROM ${dateFilter})
     `;
     const result = await this.entityManager.query(query);
     return result;

@@ -3,7 +3,7 @@ import colors from "vuetify/es5/util/colors";
 export default {
   mode: "universal",
   env: {
-    apiUrl: "http://127.0.0.1:8000",
+    apiUrl: "https://teste-copybase-backend.vercel.app",
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

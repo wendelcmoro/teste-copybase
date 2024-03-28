@@ -33,7 +33,7 @@ export class Subscription {
   @Column({ type: 'timestamp' })
   status_date: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   cancel_date: Date;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
