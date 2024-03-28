@@ -14,12 +14,13 @@ Teste técnico copybase
    3.2 [Configurando ambiente local](##Configurando-ambiente-local)<br>
    3.3 [Executando projeto](##Executando-projeto)<br>
 4. [Observações](#Observações)<br>
+5. [Usando o Docker para montar o banco](#Usando-o-Docker-para-montar-o-banco)<br>
 
 # 1 Requisitos
 
 - NodeJS v18.17.1
 - npm v9.6.7
-- MariaDB 10.5.23 para execução do backend(possivelmente funciona com outras versões do Mysql)
+- MariaDB 10.5.23(Foi adicionado um arquivo para montar um container docker para o banco, o .env.example já está mapeado para o uso deste container)
 
 # 2 Execução do backend
 
@@ -76,3 +77,11 @@ Agora basta acessarmos a seguinte rota(se for a padrão) em um navegador de sua 
 # 4 Observações
 
 A API espera um arquivo CSV com separador ';'.
+
+# 5 Usando o Docker para montar o banco
+
+No diretório principal deste projeto, foi disponibilizado um arquivo **yml**, este yml está configurado para criar um container docker do MariaDB 10.5, o arquivo **.env.example** já está mapeado para conectar neste banco. Para executar o container basta executar o seguinte comando se estiver com docker instalado em sua máquina local:
+
+```console
+sudo docker-compose up -d
+```
