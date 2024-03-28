@@ -107,51 +107,6 @@ export class SubscriptionService {
     return result;
   }
 
-  // Período de cobrança
-  async getSubscriptionChargePeriodPerMonth(
-    year?: number,
-    status?: number,
-    date_filter?: number,
-  ): Promise<{ month: number; count: number }[]> {
-    let whereClause = '';
-
-    // Filtro de ano
-    if (year !== undefined) {
-      whereClause = `WHERE YEAR(start_date) = ${year}`;
-    }
-
-    // Filtro de status
-    if (status !== undefined) {
-      if (whereClause != '') {
-        whereClause = whereClause + ' and ';
-      } else {
-        whereClause = 'WHERE ';
-      }
-      whereClause = whereClause + `status = ${status}`;
-    }
-
-    // Filtro de tipo de data
-    let dateFilter = 'start_date';
-    if (date_filter != undefined) {
-      if (date_filter == 2) {
-        dateFilter = 'status_date';
-      } else if (date_filter == 3) {
-        dateFilter = 'cancel_date';
-      } else {
-        dateFilter = 'next_cycle';
-      }
-    }
-
-    const query = `
-      SELECT MONTH(${dateFilter}) as month, SUM(charge_period) as count
-      FROM subscriptions
-      ${whereClause}
-      GROUP BY MONTH(${dateFilter})
-    `;
-    const result = await this.entityManager.query(query);
-    return result;
-  }
-
   // Valor por mês
   async getSubscriptionValuePeriodPerMonth(
     year?: number,
