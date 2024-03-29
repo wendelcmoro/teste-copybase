@@ -209,8 +209,13 @@ export default {
         );
 
         const newData = response.data;
-
-        this.$emit("update-chart-data", newData);
+        let label = "Subscriptions";
+        if (this.selectedOption == 2) {
+          label = "Charges";
+        } else if (this.selectedOption == 3) {
+          label = "Value in BRL";
+        }
+        this.$emit("update-chart-data", newData, label);
       } catch (error) {
         console.error("Error on fetching data:", error);
       }
