@@ -13,7 +13,7 @@
         <v-select
           v-model="selectedDateOption"
           :items="dateOptions"
-          label="Select the date to use"
+          label="Default date type"
           @change="updateChartData"
         ></v-select>
       </v-col>
@@ -84,9 +84,9 @@ export default {
     selectOptions: {
       type: Array,
       default: () => [
-        { text: "Number of subscriptions per month", value: "1" },
+        { text: "Monthly Recurring Revenue", value: "1" },
         { text: "Number of charges per month", value: "2" },
-        { text: "Value per month", value: "3" },
+        { text: "Number of subscriptions per month", value: "3" },
       ],
     },
     dateOptions: {
@@ -101,7 +101,6 @@ export default {
     statusOptions: {
       type: Array,
       default: () => [
-        { text: "Any", value: "0" },
         { text: "ACTIVE", value: "1" },
         { text: "CANCELED", value: "2" },
         { text: "DEMO_CANCELED", value: "3" },
@@ -148,7 +147,7 @@ export default {
     return {
       selectedOption: "1",
       selectedYear: "All",
-      selectedStatus: "0",
+      selectedStatus: "1",
       selectedDateOption: "1",
     };
   },
@@ -167,13 +166,14 @@ export default {
       let endpoint = "";
       // Inscrições por mês
       if (this.selectedOption == 1) {
-        endpoint = "subscriptions-per-month";
+        endpoint = "month-recurring-revenue";
       }
+
       // Período de cobranças por mês
       else if (this.selectedOption == 2) {
         endpoint = "charges-per-month";
       } else if (this.selectedOption == 3) {
-        endpoint = "value-per-month";
+        endpoint = "subscriptions-per-month";
       }
 
       // Filtro de ano
@@ -183,14 +183,12 @@ export default {
       }
 
       // Filtro de status
-      if (this.selectedStatus != 0) {
-        if (filter != "") {
-          filter = filter + "&";
-        } else {
-          filter = filter + "?";
-        }
-        filter = filter + "status=" + this.selectedStatus;
+      if (filter != "") {
+        filter = filter + "&";
+      } else {
+        filter = filter + "?";
       }
+      filter = filter + "status=" + this.selectedStatus;
 
       // Filtro de tipo de data
       if (this.selectedDateOption != 1) {
@@ -209,11 +207,11 @@ export default {
         );
 
         const newData = response.data;
-        let label = "Subscriptions";
+        let label = "Value in BRL";
         if (this.selectedOption == 2) {
           label = "Charges";
         } else if (this.selectedOption == 3) {
-          label = "Value in BRL";
+          label = "Subscriptions";
         }
         this.$emit("update-chart-data", newData, label);
       } catch (error) {

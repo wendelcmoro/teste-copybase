@@ -25,12 +25,12 @@ export default {
     ChartComponent,
   },
   props: {
-    label: { type: String, default: "Subscriptions" },
+    label: { type: String, default: "Value in BRL" },
   },
   async asyncData({ $axios }) {
     try {
       const response = await $axios.get(
-        process.env.apiUrl + "/subscriptions/subscriptions-per-month",
+        process.env.apiUrl + "/subscriptions/month-recurring-revenue?status=1",
       );
 
       let data = response.data;

@@ -43,8 +43,8 @@ export class SubscriptionController {
     );
   }
 
-  @Get('/value-per-month')
-  async getSubscriptionValuePeriodPerMonth(
+  @Get('/month-recurring-revenue')
+  async getMMR(
     @Query('year')
     year?: number,
     @Query('status')
@@ -52,7 +52,7 @@ export class SubscriptionController {
     @Query('date_filter')
     date_filter?: number,
   ): Promise<{ month: number; count: number }[]> {
-    return this.subscriptionService.getSubscriptionValuePeriodPerMonth(
+    return this.subscriptionService.getMonthlyRecurringRevenue(
       year,
       status,
       date_filter,

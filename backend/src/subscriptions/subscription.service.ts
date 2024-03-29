@@ -107,8 +107,8 @@ export class SubscriptionService {
     return result;
   }
 
-  // Valor por mês
-  async getSubscriptionValuePeriodPerMonth(
+  // Monthly Recurring Revenue
+  async getMonthlyRecurringRevenue(
     year?: number,
     status?: number,
     date_filter?: number,
