@@ -86,8 +86,7 @@ export default {
       default: () => [
         { text: "Number of subscriptions per month", value: "1" },
         { text: "Number of charges per month", value: "2" },
-        { text: "Number of charge period per month", value: "3" },
-        { text: "Value per month", value: "4" },
+        { text: "Value per month", value: "3" },
       ],
     },
     dateOptions: {
@@ -153,37 +152,6 @@ export default {
       selectedDateOption: "1",
     };
   },
-  //   data() {
-  //     return {
-  //       chartData: {
-  //         labels: [
-  //           "January",
-  //           "February",
-  //           "March",
-  //           "April",
-  //           "May",
-  //           "June",
-  //           "July",
-  //           "August",
-  //           "September",
-  //           "October",
-  //           "November",
-  //           "December",
-  //         ],
-  //         datasets: [
-  //           {
-  //             label: "Data One",
-  //             backgroundColor: "#f87979",
-  //             data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
-  //           },
-  //         ],
-  //       },
-  //       chartOptions: {
-  //         responsive: true,
-  //         maintainAspectRatio: false,
-  //       },
-  //     };
-  //   },
   computed: {
     yearOptions() {
       const currentYear = new Date().getFullYear();
@@ -205,8 +173,6 @@ export default {
       else if (this.selectedOption == 2) {
         endpoint = "charges-per-month";
       } else if (this.selectedOption == 3) {
-        endpoint = "charge-period-per-month";
-      } else if (this.selectedOption == 4) {
         endpoint = "value-per-month";
       }
 
@@ -243,8 +209,13 @@ export default {
         );
 
         const newData = response.data;
-
-        this.$emit("update-chart-data", newData);
+        let label = "Subscriptions";
+        if (this.selectedOption == 2) {
+          label = "Charges";
+        } else if (this.selectedOption == 3) {
+          label = "Value in BRL";
+        }
+        this.$emit("update-chart-data", newData, label);
       } catch (error) {
         console.error("Error on fetching data:", error);
       }

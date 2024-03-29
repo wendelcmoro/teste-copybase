@@ -43,22 +43,6 @@ export class SubscriptionController {
     );
   }
 
-  @Get('/charge-period-per-month')
-  async getSubscriptionChargePeriodPerMonth(
-    @Query('year')
-    year?: number,
-    @Query('status')
-    status?: number,
-    @Query('date_filter')
-    date_filter?: number,
-  ): Promise<{ month: number; count: number }[]> {
-    return this.subscriptionService.getSubscriptionChargePeriodPerMonth(
-      year,
-      status,
-      date_filter,
-    );
-  }
-
   @Get('/value-per-month')
   async getSubscriptionValuePeriodPerMonth(
     @Query('year')

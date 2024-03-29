@@ -24,6 +24,9 @@ export default {
     FileUploadModal,
     ChartComponent,
   },
+  props: {
+    label: { type: String, default: "Subscriptions" },
+  },
   async asyncData({ $axios }) {
     try {
       const response = await $axios.get(
@@ -64,7 +67,7 @@ export default {
         ],
         datasets: [
           {
-            label: "Data",
+            label: this.label,
             backgroundColor: "#f87979",
             data: this.data,
           },
@@ -77,7 +80,7 @@ export default {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: false,
+            // display: false,
           },
         },
       };
@@ -85,7 +88,7 @@ export default {
   },
   methods: {
     // Atualiza componente do gráfico
-    async updateChartData(newData) {
+    async updateChartData(newData, label) {
       let aux = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       newData.forEach((element) => {
         if (element.month) {
@@ -93,6 +96,7 @@ export default {
         }
       });
       this.data = aux;
+      this.label = label;
     },
     // Sinaliza evento para atualizar dados do backend
     async sendRefreshChartData() {
